@@ -111,6 +111,9 @@ private:
 
     QWidget *widget;
 
+    QPixmap *bkgnd;
+    QPalette *palette;
+
     bool Status_Line;  //避免各个init函数创建时候崩溃以及clear时候崩溃
     bool Status_Button;
     bool Status_Label;

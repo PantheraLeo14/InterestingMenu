@@ -199,6 +199,7 @@ void MainWindow::ActFindNum(){
     label4->setVisible(true);
     initPushButton(widget);
     connect(Button1, &QPushButton::clicked, this, &MainWindow::WorkFindNum);
+    setBackground(2);
 }
 
 void MainWindow::WorkFindNum(){
@@ -234,6 +235,7 @@ void MainWindow::ActFindRoot(){
     initWidget();
     initPushButton(widget);
     connect(Button1, &QPushButton::clicked, this, &MainWindow::WorkFindRoot);
+    setBackground(3);
 }
 
 void MainWindow::WorkFindRoot(){
@@ -276,6 +278,7 @@ void MainWindow::ActDetective(){
     initPushButton(this);
     Button1->move(335,500);
     connect(Button1, &QPushButton::clicked, this, &MainWindow::WorkDetective);
+    setBackground(4);
 }
 
 void MainWindow::WorkDetective(){
@@ -313,6 +316,7 @@ void MainWindow::ActBear(){
     initPushButton(this);
     Button1->move(335,500);
     connect(Button1, &QPushButton::clicked, this, &MainWindow::WorkBear);
+    setBackground(5);
 }
 
 void MainWindow::WorkBear(){
@@ -331,6 +335,7 @@ void MainWindow::ActMultiplicationTable(){
     Button1->move(335,500);
     Button1->setText("打印乘法表");
     connect(Button1, &QPushButton::clicked, this, &MainWindow::WorkMultiplicationTable);
+    setBackground(6);
 }
 
 void MainWindow::WorkMultiplicationTable(){
@@ -355,13 +360,20 @@ void MainWindow::ActGoodbye(){
 
 
 void MainWindow::setBackground(int i){
-    QPixmap bkgnd;
-    if(i == 1) bkgnd.load(":/res/welcome.png");
-    else if(i == 2) bkgnd.load(":/res/clear.png");
-    bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
-    QPalette palette;
-    palette.setBrush(QPalette::Window, bkgnd);
-    this->setPalette(palette);
+    if(!bkgnd) delete bkgnd;
+    if(!palette) delete palette;
+    bkgnd = new QPixmap;
+    if(i == 1) bkgnd->load(":/res/welcome.png");
+    else if(i == 2) bkgnd->load(":/res/FIndNum.jpg");
+    else if(i == 3) bkgnd->load(":/res/Root.png");
+    else if(i == 4) bkgnd->load(":/res/dv3.jpg");
+    else if(i == 5) bkgnd->load(":/res/Bears.png");
+    else if(i == 6) bkgnd->load(":/res/mutltable.jpg");
+    *bkgnd = bkgnd->scaled(this->size(), Qt::IgnoreAspectRatio);
+    palette = new QPalette;
+    palette->setBrush(QPalette::Window, *bkgnd);
+    this->setPalette(*palette);
+    if(!widget) widget->setPalette(*palette);
 }
 
 void MainWindow::initWindow(){
@@ -395,6 +407,9 @@ MainWindow::~MainWindow()
     delete Goodbye;
 
     delete toolbar;
+
+    delete bkgnd;
+    delete palette;
 
     ActClear();
 

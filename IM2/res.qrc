@@ -2,5 +2,11 @@
     <qresource prefix="/">
         <file>res/welcome.png</file>
         <file>res/clear.png</file>
+        <file>res/FIndNum.jpg</file>
+        <file>res/FindRoot.png</file>
+        <file>res/mutltable.jpg</file>
+        <file>res/Root.png</file>
+        <file>res/Bears.png</file>
+        <file>res/dv3.jpg</file>
     </qresource>
 </RCC>
