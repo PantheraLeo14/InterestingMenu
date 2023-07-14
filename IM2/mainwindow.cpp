@@ -9,6 +9,14 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 }
 
+//int MainWindow::ConverStringToInt(QString a){
+//    int answer = 0;
+//    for(size_t i = 0; i < a.size(); ++i){
+//        answer = answer * 10 + a.at(i).unicode() - '0';
+//    }
+//    return answer;
+//}
+
 void MainWindow::initMenu(){
     FindNum = new QMenu("&FindNum");
     FindRoot = new QMenu("&FindRoot");
@@ -75,21 +83,21 @@ void MainWindow::initConnection(){
 }
 
 void MainWindow::initLineEdit(){
-    if(!Status_Line){
-        line1 = new QLineEdit(this);
-        line2 = new QLineEdit(this);
-        line1->resize(20,20);
-        line2->resize(20,20);
-        line1->setVisible(true);
-        line2->setVisible(true);
-        Status_Line = true;
-    }
-    else return;
+    if(Status_Line == true) ActClear();
+    line1 = new QLineEdit(this);
+    line2 = new QLineEdit(this);
+    line3 = new QLineEdit(this);
+    line1->resize(20,20);
+    line2->resize(20,20);
+    line3->resize(20,20);
+
+    Status_Line = true;
 }
 
 void MainWindow::closeLineEdit(){//bugs need repairing
-    line1->setVisible(false);
-    line2->setVisible(false);
+    if(line1 != nullptr) delete line1;
+    if(line2 != nullptr) delete line2;
+    if(line3 != nullptr) delete line3;
     Status_Line = false;
 }
 
@@ -103,34 +111,24 @@ void MainWindow::closePushButton(){
 }
 
 void MainWindow::initPushButton(QWidget *widget){
-    if(!Status_Button){
-        Button1 = new QPushButton(widget);
-        Button1->setVisible(true);
-        Button1->resize(100,50);
-        Button1->move(335, 400);
-        Button1->setText("执行程序");
-        Button1->setVisible(true);
-        Status_Button = true;
-    }
-    else return;
+    if(Status_Button == true) ActClear();
+    Button1 = new QPushButton(widget);
+    Button1->setVisible(true);
+    Button1->resize(100,50);
+    Button1->move(335, 400);
+    Button1->setText("执行程序");
+    Button1->setVisible(true);
+    Status_Button = true;
 }
 
 void MainWindow::initLabel(){
-    if(!Status_Label){
-        label1 = new QLabel(this);
-        label2 = new QLabel(this);
-        label3 = new QLabel(this);
-        label4 = new QLabel(this);
-        label_answer = new QLabel(this);
-        label1->setText("3");
-        label2->setText("*6237=3");
-        label3->setText("*3564");
-        label1->setVisible(true);
-        label2->setVisible(true);
-        label3->setVisible(true);
-        Status_Label = true;
-    }
-    else return;
+    if(Status_Label == true) ActClear();
+    label1 = new QLabel(this);
+    label2 = new QLabel(this);
+    label3 = new QLabel(this);
+    label4 = new QLabel(this);
+
+    Status_Label = true;
 }
 
 void MainWindow::closeLabel(){
@@ -170,9 +168,25 @@ void MainWindow::closeWidget(){
     Status_Widget = false;
 }
 
+void MainWindow::closeLayout(){
+    if(layout1 != nullptr) delete layout1;
+    Status_Layout = false;
+}
+
 void MainWindow::ActFindNum(){
+    ActClear();
     initLineEdit();
+    line1->setVisible(true);
+    line2->setVisible(true);
+    line3->setVisible(false);
     initLabel();
+    label1->setText("3");
+    label2->setText("*6237=3");
+    label3->setText("*3564");
+    label1->setVisible(true);
+    label2->setVisible(true);
+    label3->setVisible(true);
+    Status_Layout = true;
     layout1 = new QHBoxLayout(this);
     layout1->addWidget(label1);
     layout1->addWidget(line1);
@@ -194,7 +208,49 @@ void MainWindow::WorkFindNum(){
 }
 
 void MainWindow::ActFindRoot(){
+    ActClear();
+    initLineEdit();
+    line1->setVisible(true);
+    line2->setVisible(true);
+    line3->setVisible(true);
+    initLabel();
+    label1->setText("X^2+");
+    label2->setText("X+");
+    label3->setText("=0");
+    label1->setVisible(true);
+    label2->setVisible(true);
+    label3->setVisible(true);
+    label4->setText("ANSWER:");
+    label4->move(335, 375);
+    label4->resize(300,50);
+    label4->setVisible(true);
+    layout1 = new QHBoxLayout(this);
+    layout1->addWidget(line1);
+    layout1->addWidget(label1);
+    layout1->addWidget(line2);
+    layout1->addWidget(label2);
+    layout1->addWidget(line3);
+    layout1->addWidget(label3);
+    initWidget();
+    initPushButton(widget);
+    connect(Button1, &QPushButton::clicked, this, &MainWindow::WorkFindRoot);
+}
 
+void MainWindow::WorkFindRoot(){
+    int a, b, c;
+    bool ok;                        //DEBUG:需要一个ok的bool值才可以转换
+    a = line1->text().toInt(&ok);
+    b = line2->text().toInt(&ok);
+    c = line3->text().toInt(&ok);
+    work.FindRoot(a, b, c);
+    QString answer;
+    if(work.flag_FindRoot == 1) answer = "NO ROOT";
+    else{
+         answer = "ROOT: " + QString::number(work.Answer_FindRoot1);
+         answer = answer + " ";
+         answer = answer + QString::number(work.Answer_FindRoot2);
+    }
+    label4->setText(answer);
 }
 
 void MainWindow::ActDetective(){
@@ -204,17 +260,19 @@ void MainWindow::ActDetective(){
 void MainWindow::ActBear(){
 
 }
-
+s
 void MainWindow::ActMultiplicationTable(){
 
 }
 
-void MainWindow::ActClear(){
+void MainWindow::ActClear(){//DEBUG::Clear时候一定要确定已经创建才删除，避免报错
     setBackground(1);
     if(Status_Line)closeLineEdit();
     if(Status_Label)closeLabel();
     if(Status_Button)closePushButton();
+    if(Status_Layout)closeLayout();//DEBUG::先删除layout再删除widget，顺序错误会报错
     if(Status_Widget)closeWidget();
+
 }
 
 void MainWindow::ActGoodbye(){
@@ -238,7 +296,7 @@ void MainWindow::initWindow(){
     Status_Label = false;
     Status_Line = false;
     Status_Widget = false;
-    Status_Clear = false;
+    Status_Layout = false;
     setFixedSize(800,600);
     setBackground(1);
     initAction();
@@ -264,6 +322,8 @@ MainWindow::~MainWindow()
     delete Goodbye;
 
     delete toolbar;
+
+    ActClear();
 
     delete ui;
 }

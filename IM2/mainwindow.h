@@ -52,14 +52,25 @@ public:
     void initWidget();
     void closeWidget();
 
+    void closeLayout();
+
     void ActFindNum();
     void WorkFindNum();
+
     void ActFindRoot();
+    void WorkFindRoot();
+
     void ActDetective();
+
     void ActBear();
+
     void ActMultiplicationTable();
+
     void ActGoodbye();
     void ActClear();
+
+//试图写一个转化函数，结果发现是const型，不强制更改cv值就放弃了，去使用原生的toint函数.
+//    int ConverStringToInt(QString a);
 
 private:
     Ui::MainWindow *ui;
@@ -84,6 +95,7 @@ private:
 
     QLineEdit *line1;
     QLineEdit *line2;
+    QLineEdit *line3;
 
     QHBoxLayout *layout1;
 
@@ -93,7 +105,6 @@ private:
     QLabel *label2;
     QLabel *label3;
     QLabel *label4;
-    QLabel *label_answer;
 
     QWidget *widget;
 
@@ -101,6 +112,7 @@ private:
     bool Status_Button;
     bool Status_Label;
     bool Status_Widget;
+    bool Status_Layout;
 
     WorkFun work;
 

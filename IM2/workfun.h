@@ -11,9 +11,16 @@ class WorkFun : public QObject
     Q_OBJECT
 public:
     explicit WorkFun(QObject *parent = 0);
+
     void FindNum();
     int Answer_FindNum;
-    void FindRoot();
+
+    void FindRoot(int a, int b, int c);
+    double Answer_FindRoot1;
+    double Answer_FindRoot2;
+    int flag_FindRoot;
+
+    void Detective();
 
 signals:
 
