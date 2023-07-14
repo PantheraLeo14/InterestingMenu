@@ -24,7 +24,6 @@ void WorkFun::FindRoot(int a, int b, int c){
         return;
     }
     else if(b * b - 4 * a * c == 0) flag_FindRoot = 2;
-    else flag_FindRoot = 3;
     for(tmp1 = 0; tmp1 * tmp1 <= b * b - 4 * a * c; ++tmp1);
     --tmp1;
     for(tmp2 = tmp1; tmp2 * tmp2 <= b * b - 4 * a * c; tmp2 +=0.01);

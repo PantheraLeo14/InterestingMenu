@@ -239,17 +239,23 @@ void MainWindow::ActFindRoot(){
 void MainWindow::WorkFindRoot(){
     int a, b, c;
     bool ok;                        //DEBUG:需要一个ok的bool值才可以转换
+    QString answer;
+    if(line1->text().isEmpty() || line2->text().isEmpty() || line3->text().isEmpty()){
+         answer = "NO ROOT";
+         goto over;
+    }
     a = line1->text().toInt(&ok);
     b = line2->text().toInt(&ok);
     c = line3->text().toInt(&ok);
     work.FindRoot(a, b, c);
-    QString answer;
     if(work.flag_FindRoot == 1) answer = "NO ROOT";
     else{
          answer = "ROOT: " + QString::number(work.Answer_FindRoot1);
          answer = answer + " ";
          answer = answer + QString::number(work.Answer_FindRoot2);
     }
+    qDebug() << a << b << c;
+    over:
     label4->setText(answer);
 }
 
