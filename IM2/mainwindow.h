@@ -75,6 +75,8 @@ public:
 //试图写一个转化函数，结果发现是const型，不强制更改cv值就放弃了，去使用原生的toint函数.
 //    int ConverStringToInt(QString a);
 
+    void mousePressEvent(QMouseEvent *event);
+
 private:
     Ui::MainWindow *ui;
 

@@ -265,7 +265,7 @@ void MainWindow::ActDetective(){
     ActClear();
     initLabel();
     label1->setVisible(true);
-    label1->move(100,50); //注意不能设置为0，不然控件会把menu卡掉
+    label1->move(100,50);           //注意不能设置为0，不然控件会把menu卡掉
     label1->resize(600,300);
     label1->setText("车辆拍照号码推论：一辆汽车撞人逃逸后，4个目击者提供如下线索：\n"
                     "甲：拍照3，4位相同；\n"
@@ -374,6 +374,18 @@ void MainWindow::setBackground(int i){
     palette->setBrush(QPalette::Window, *bkgnd);
     this->setPalette(*palette);
     if(!widget) widget->setPalette(*palette);
+}
+
+void MainWindow::mousePressEvent(QMouseEvent *event){
+    QMenu menu;
+    menu.addAction(action_FindNum);
+    menu.addAction(action_FindRoot);
+    menu.addAction(action_Detective);
+    menu.addAction(action_Bear);
+    menu.addAction(action_MultiplicationTable);
+    menu.addAction(action_Clear);
+    menu.addAction(action_Goodbye);
+    menu.exec(QCursor::pos());
 }
 
 void MainWindow::initWindow(){
