@@ -254,13 +254,67 @@ void MainWindow::WorkFindRoot(){
 }
 
 void MainWindow::ActDetective(){
+    ActClear();
+    initLabel();
+    label1->setVisible(true);
+    label1->move(100,50); //注意不能设置为0，不然控件会把menu卡掉
+    label1->resize(600,300);
+    label1->setText("车辆拍照号码推论：一辆汽车撞人逃逸后，4个目击者提供如下线索：\n"
+                    "甲：拍照3，4位相同；\n"
+                    "乙：牌号为31****；\n"
+                    "丙：拍照5，6位相同；\n丁：3-6位是一个整数的平方");
+    label4->setText("ANSWER:");
+    label4->move(335, 375);
+    label4->resize(300,100);
+    label4->setVisible(true);
+    initPushButton(this);
+    Button1->move(335,500);
+    connect(Button1, &QPushButton::clicked, this, &MainWindow::WorkDetective);
+}
 
+void MainWindow::WorkDetective(){
+    work.Detective();
+    QString answer = "ANSWER:";
+    for(int i = 0; i < work.Index_Detective; ++i){
+        answer = answer + "31";
+        for(int a = 0; a < 2; ++a){
+            answer = answer + QString::number(work.Answer_Detective[i][0]);
+        }
+        for(int a = 0; a < 2; ++a){
+            answer = answer + QString::number(work.Answer_Detective[i][1]);
+        }
+        answer = answer + "\n       ";
+    }
+    label4->setText(answer);
 }
 
 void MainWindow::ActBear(){
-
+    ActClear();
+    initLabel();
+    label1->setVisible(true);
+    label1->move(100,50);
+    label1->resize(600,300);
+    label1->setText("计算下列笑话：有一只构造熊到玉米地里掰玉米，一边掰一边吃。\n"
+                    "第一天吃了一半，又拿一个回去喂小狗熊。\n"
+                    "第二天又去吃了剩下的一半，走时任然带一个回去喂小狗熊。\n"
+                    "以后每天都吃前一天剩下的一半，拿走一个。\n"
+                    "到第十天时，地里只剩下一个玉米了。\n"
+                    "求地里一共多少玉米。");
+    label4->setText("ANSWER:");
+    label4->move(335, 375);
+    label4->resize(300,100);
+    label4->setVisible(true);
+    initPushButton(this);
+    Button1->move(335,500);
+    connect(Button1, &QPushButton::clicked, this, &MainWindow::WorkBear);
 }
-s
+
+void MainWindow::WorkBear(){
+    work.Bear();
+    QString answer = "ANSWER:";
+    answer = answer + QString::number(work.Answer_Bear);
+    label4->setText(answer);
+}
 void MainWindow::ActMultiplicationTable(){
 
 }

@@ -21,6 +21,11 @@ public:
     int flag_FindRoot;
 
     void Detective();
+    int Answer_Detective[100][2];
+    int Index_Detective;
+
+    void Bear();
+    int Answer_Bear;
 
 signals:
 

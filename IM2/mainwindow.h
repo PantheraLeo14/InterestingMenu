@@ -61,8 +61,10 @@ public:
     void WorkFindRoot();
 
     void ActDetective();
+    void WorkDetective();
 
     void ActBear();
+    void WorkBear();
 
     void ActMultiplicationTable();
 
