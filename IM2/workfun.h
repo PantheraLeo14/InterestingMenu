@@ -27,6 +27,10 @@ public:
     void Bear();
     int Answer_Bear;
 
+    void MultiplicationTable();
+    QString Answer_MultiTable;
+    bool Status_MultiTable;//防止答案多添加多次打印
+
 signals:
 
 public slots:

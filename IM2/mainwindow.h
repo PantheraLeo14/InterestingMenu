@@ -67,6 +67,7 @@ public:
     void WorkBear();
 
     void ActMultiplicationTable();
+    void WorkMultiplicationTable();
 
     void ActGoodbye();
     void ActClear();

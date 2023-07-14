@@ -2,7 +2,7 @@
 
 WorkFun::WorkFun(QObject *parent) : QObject(parent)
 {
-
+    Status_MultiTable = false;
 }
 
 void WorkFun::FindNum(){
@@ -61,4 +61,20 @@ void WorkFun::Bear(){
         ++Answer_Bear;
         Answer_Bear *= 2;
     }
+}
+
+void WorkFun::MultiplicationTable(){
+    if(Status_MultiTable) return;
+    for(int i = 1; i < 10; ++i){
+        for(int j = 1; j <= i; ++j){
+            Answer_MultiTable = Answer_MultiTable + QString::number(j) + "*" + QString::number(i) + "=" + QString::number(j*i) + "  ";
+//            std::cout << j << "*" << i << "=" << j * i << "  ";
+            if(j == 2 && (i == 4 || i == 3))
+                Answer_MultiTable = Answer_MultiTable + " ";
+//                std::cout << " ";
+        }
+        Answer_MultiTable = Answer_MultiTable + "\n";
+//        std::cout << "\n";
+    }
+    Status_MultiTable = true;
 }

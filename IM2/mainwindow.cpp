@@ -322,7 +322,20 @@ void MainWindow::WorkBear(){
     label4->setText(answer);
 }
 void MainWindow::ActMultiplicationTable(){
+    ActClear();
+    initLabel();
+    label1->setVisible(true);
+    label1->move(80,50);
+    label1->resize(650,300);
+    initPushButton(this);
+    Button1->move(335,500);
+    Button1->setText("打印乘法表");
+    connect(Button1, &QPushButton::clicked, this, &MainWindow::WorkMultiplicationTable);
+}
 
+void MainWindow::WorkMultiplicationTable(){
+    work.MultiplicationTable();
+    label1->setText(work.Answer_MultiTable);
 }
 
 void MainWindow::ActClear(){//DEBUG::Clear时候一定要确定已经创建才删除，避免报错
