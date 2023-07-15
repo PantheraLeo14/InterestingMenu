@@ -28,6 +28,12 @@ void MainWindow::PlaySound(int i){
     sound->play();
 }
 
+void MainWindow::SetLabelPointSize(QLabel *label, int i){
+    QFont font = label->text();
+    font.setPointSize(i);
+    label->setFont(font);
+}
+
 void MainWindow::initMenu(){
     FindNum = new QMenu("&FindNum");
     FindRoot = new QMenu("&FindRoot");
@@ -197,6 +203,9 @@ void MainWindow::ActFindNum(){
     label1->setVisible(true);
     label2->setVisible(true);
     label3->setVisible(true);
+    SetLabelPointSize(label1,18);
+    SetLabelPointSize(label2,18);
+    SetLabelPointSize(label3,18);
     Status_Layout = true;
     layout1 = new QHBoxLayout(this);
     layout1->addWidget(label1);
@@ -207,7 +216,9 @@ void MainWindow::ActFindNum(){
     initWidget();
     label4->setText("ANSWER:");
     label4->move(335, 375);
+    label4->resize(500,100);
     label4->setVisible(true);
+    SetLabelPointSize(label4,18);
     initPushButton(widget);
     connect(Button1, &QPushButton::clicked, this, &MainWindow::WorkFindNum);
     setBackground(2);
@@ -233,10 +244,14 @@ void MainWindow::ActFindRoot(){
     label1->setVisible(true);
     label2->setVisible(true);
     label3->setVisible(true);
+    SetLabelPointSize(label1,18);
+    SetLabelPointSize(label2,18);
+    SetLabelPointSize(label3,18);
     label4->setText("ANSWER:");
-    label4->move(335, 375);
-    label4->resize(300,50);
+    label4->move(300, 375);
+    label4->resize(500,50);
     label4->setVisible(true);
+    SetLabelPointSize(label4,18);
     layout1 = new QHBoxLayout(this);
     layout1->addWidget(line1);
     layout1->addWidget(label1);
@@ -269,7 +284,6 @@ void MainWindow::WorkFindRoot(){
          answer = answer + " ";
          answer = answer + QString::number(work.Answer_FindRoot2);
     }
-    qDebug() << a << b << c;
     over:
     label4->setText(answer);
 }
@@ -280,14 +294,17 @@ void MainWindow::ActDetective(){
     label1->setVisible(true);
     label1->move(100,50);           //注意不能设置为0，不然控件会把menu卡掉
     label1->resize(600,300);
-    label1->setText("车辆拍照号码推论：一辆汽车撞人逃逸后，4个目击者提供如下线索：\n"
+    label1->setText("车辆拍照号码推论：一辆汽车撞人逃逸后，\n"
+                    "4个目击者提供如下线索：\n"
                     "甲：拍照3，4位相同；\n"
                     "乙：牌号为31****；\n"
                     "丙：拍照5，6位相同；\n丁：3-6位是一个整数的平方");
+    SetLabelPointSize(label1, 15);
     label4->setText("ANSWER:");
     label4->move(335, 375);
-    label4->resize(300,100);
+    label4->resize(300,150);
     label4->setVisible(true);
+    SetLabelPointSize(label4, 18);
     initPushButton(this);
     Button1->move(335,500);
     connect(Button1, &QPushButton::clicked, this, &MainWindow::WorkDetective);
@@ -308,6 +325,7 @@ void MainWindow::WorkDetective(){
         }
         answer = answer + "\n       ";
     }
+    label4->move(280,400);
     label4->setText(answer);
 }
 
@@ -317,16 +335,19 @@ void MainWindow::ActBear(){
     label1->setVisible(true);
     label1->move(100,50);
     label1->resize(600,300);
-    label1->setText("计算下列笑话：有一只构造熊到玉米地里掰玉米，一边掰一边吃。\n"
+    label1->setText("计算下列笑话：\n"
+                    "有一只构造熊到玉米地里掰玉米，一边掰一边吃。\n"
                     "第一天吃了一半，又拿一个回去喂小狗熊。\n"
                     "第二天又去吃了剩下的一半，走时任然带一个回去喂小狗熊。\n"
                     "以后每天都吃前一天剩下的一半，拿走一个。\n"
                     "到第十天时，地里只剩下一个玉米了。\n"
                     "求地里一共多少玉米。");
+    SetLabelPointSize(label1, 15);
     label4->setText("ANSWER:");
     label4->move(335, 375);
     label4->resize(300,100);
     label4->setVisible(true);
+    SetLabelPointSize(label4, 18);
     initPushButton(this);
     Button1->move(335,500);
     connect(Button1, &QPushButton::clicked, this, &MainWindow::WorkBear);
@@ -344,8 +365,9 @@ void MainWindow::ActMultiplicationTable(){
     ActClear();
     initLabel();
     label1->setVisible(true);
-    label1->move(80,50);
-    label1->resize(650,300);
+    label1->move(30,50);
+    label1->resize(740,400);
+    SetLabelPointSize(label1, 11);
     initPushButton(this);
     Button1->move(335,500);
     Button1->setText("打印乘法表");

@@ -18,6 +18,7 @@
 #include <QUrl>
 #include <QMediaPlayer>
 #include <QFileInfo>
+#include <QFont>
 
 namespace Ui {
 class MainWindow;
@@ -81,6 +82,8 @@ public:
     void mousePressEvent(QMouseEvent *event);
 
     void PlaySound(int i);
+
+    void SetLabelPointSize(QLabel *label, int i);
 
 private:
     Ui::MainWindow *ui;
