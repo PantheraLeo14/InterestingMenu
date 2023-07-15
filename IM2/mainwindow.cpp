@@ -16,6 +16,17 @@ MainWindow::MainWindow(QWidget *parent) :
 //    }
 //    return answer;
 //}
+void MainWindow::PlaySound(int i){
+    if(sound != nullptr) delete sound;
+    sound = new QMediaPlayer;
+    if(i == 1) sound->setMedia(QUrl::fromLocalFile("E:WORKFILES/Qt_Project/IM2/Sound/Sound1.wav"));
+    if(i == 2) sound->setMedia(QUrl::fromLocalFile("E:WORKFILES/Qt_Project/IM2/Sound/Sound2.wav"));
+    if(i == 3) sound->setMedia(QUrl::fromLocalFile("E:WORKFILES/Qt_Project/IM2/Sound/Sound3.wav"));
+    if(i == 4) sound->setMedia(QUrl::fromLocalFile("E:WORKFILES/Qt_Project/IM2/Sound/Sound4.wav"));
+    if(i == 5) sound->setMedia(QUrl::fromLocalFile("E:WORKFILES/Qt_Project/IM2/Sound/Sound5.wav"));
+    sound->setVolume(100);
+    sound->play();
+}
 
 void MainWindow::initMenu(){
     FindNum = new QMenu("&FindNum");
@@ -83,7 +94,7 @@ void MainWindow::initConnection(){
 }
 
 void MainWindow::initLineEdit(){
-    if(Status_Line == true) ActClear();
+    if(Status_Line == true) ActClear();//清空以前生成的lineedit
     line1 = new QLineEdit(this);
     line2 = new QLineEdit(this);
     line3 = new QLineEdit(this);
@@ -111,7 +122,7 @@ void MainWindow::closePushButton(){
 }
 
 void MainWindow::initPushButton(QWidget *widget){
-    if(Status_Button == true) ActClear();
+    if(Status_Button == true) ActClear(); //清空以前生成的PushButton
     Button1 = new QPushButton(widget);
     Button1->setVisible(true);
     Button1->resize(100,50);
@@ -200,6 +211,7 @@ void MainWindow::ActFindNum(){
     initPushButton(widget);
     connect(Button1, &QPushButton::clicked, this, &MainWindow::WorkFindNum);
     setBackground(2);
+    PlaySound(1);
 }
 
 void MainWindow::WorkFindNum(){
@@ -236,6 +248,7 @@ void MainWindow::ActFindRoot(){
     initPushButton(widget);
     connect(Button1, &QPushButton::clicked, this, &MainWindow::WorkFindRoot);
     setBackground(3);
+    PlaySound(2);
 }
 
 void MainWindow::WorkFindRoot(){
@@ -279,6 +292,7 @@ void MainWindow::ActDetective(){
     Button1->move(335,500);
     connect(Button1, &QPushButton::clicked, this, &MainWindow::WorkDetective);
     setBackground(4);
+    PlaySound(3);
 }
 
 void MainWindow::WorkDetective(){
@@ -317,6 +331,7 @@ void MainWindow::ActBear(){
     Button1->move(335,500);
     connect(Button1, &QPushButton::clicked, this, &MainWindow::WorkBear);
     setBackground(5);
+    PlaySound(4);
 }
 
 void MainWindow::WorkBear(){
@@ -336,6 +351,7 @@ void MainWindow::ActMultiplicationTable(){
     Button1->setText("打印乘法表");
     connect(Button1, &QPushButton::clicked, this, &MainWindow::WorkMultiplicationTable);
     setBackground(6);
+    PlaySound(5);
 }
 
 void MainWindow::WorkMultiplicationTable(){
@@ -361,7 +377,6 @@ void MainWindow::ActGoodbye(){
 
 void MainWindow::setBackground(int i){
     if(!bkgnd) delete bkgnd;
-    if(!palette) delete palette;
     bkgnd = new QPixmap;
     if(i == 1) bkgnd->load(":/res/welcome.png");
     else if(i == 2) bkgnd->load(":/res/FIndNum.jpg");
@@ -370,10 +385,8 @@ void MainWindow::setBackground(int i){
     else if(i == 5) bkgnd->load(":/res/Bears.png");
     else if(i == 6) bkgnd->load(":/res/mutltable.jpg");
     *bkgnd = bkgnd->scaled(this->size(), Qt::IgnoreAspectRatio);
-    palette = new QPalette;
-    palette->setBrush(QPalette::Window, *bkgnd);
-    this->setPalette(*palette);
-    if(!widget) widget->setPalette(*palette);
+    palette.setBrush(QPalette::Window, *bkgnd);
+    this->setPalette(palette);
 }
 
 void MainWindow::mousePressEvent(QMouseEvent *event){
@@ -421,7 +434,6 @@ MainWindow::~MainWindow()
     delete toolbar;
 
     delete bkgnd;
-    delete palette;
 
     ActClear();
 

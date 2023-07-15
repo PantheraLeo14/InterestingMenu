@@ -15,6 +15,9 @@
 #include "workfun.h"
 #include <QLabel>
 #include <QWidget>
+#include <QUrl>
+#include <QMediaPlayer>
+#include <QFileInfo>
 
 namespace Ui {
 class MainWindow;
@@ -77,6 +80,8 @@ public:
 
     void mousePressEvent(QMouseEvent *event);
 
+    void PlaySound(int i);
+
 private:
     Ui::MainWindow *ui;
 
@@ -114,7 +119,9 @@ private:
     QWidget *widget;
 
     QPixmap *bkgnd;
-    QPalette *palette;
+    QPalette palette;
+
+    QMediaPlayer *sound;
 
     bool Status_Line;  //避免各个init函数创建时候崩溃以及clear时候崩溃
     bool Status_Button;
